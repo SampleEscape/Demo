@@ -1,9 +1,10 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.gradle.AppExtension
 import com.escape.demo.buildlogic.ProjectConfigurations
 import com.escape.demo.buildlogic.configureAndroid
 import com.escape.demo.buildlogic.configureAndroidCompose
+import com.escape.demo.buildlogic.configureBuildVariant
 import com.escape.demo.buildlogic.configureComposeKotlin
-import com.escape.demo.buildlogic.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -26,16 +27,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 defaultConfig {
                     targetSdk = ProjectConfigurations.targetSdk
                 }
-
-                buildTypes {
-                    release {
-                        isMinifyEnabled = true
-                        proguardFiles(
-                            getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules.pro",
-                        )
-                    }
-                }
             }
 
             extensions.configure<ComposeCompilerGradlePluginExtension> {
@@ -44,6 +35,10 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<KotlinAndroidProjectExtension> {
                 configureComposeKotlin(this)
+            }
+
+            extensions.configure<AppExtension> {
+                configureBuildVariant(this)
             }
         }
     }
