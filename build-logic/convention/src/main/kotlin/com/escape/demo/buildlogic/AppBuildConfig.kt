@@ -90,6 +90,9 @@ internal enum class AppManifestPlaceholder(
     val field: String,
     private val values: BuildValues,
 ) {
+    APP_PRODUCT_NAME(ConfigType.STRING, "APP_PRODUCT_NAME", BuildValues {
+        set("방탈출")
+    }),
     APP_BUILD_NAME(ConfigType.STRING, "APP_BUILD_NAME", BuildValues {
         set(AppBuildType.DEBUG, "[DEBUG]")
         set(AppBuildType.BETA, "[BETA]")
